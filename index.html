@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Página con Fondo Cambiante</title>
+    <style>
+        body {
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background-size: cover;
+            background-position: center;
+            transition: background-image 1s ease-in-out;
+            background-image: url('vi1.jpg'); /* Imagen inicial */
+            background-color: #E8E8E8; /* Fondo inicial negro en caso de que la imagen tarde en cargar */
+        }
+
+        .overlay {
+            background-color: transparent;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            z-index: 1;
+        }
+
+        h1, h2, p {
+            opacity: 0; /* Inicialmente invisibles */
+            animation: fadeInUp 1.5s forwards; /* Aplicamos la animación */
+        }
+
+        h1 {
+            font-size: 7rem;
+            color: #000000;
+            margin-bottom: 10px;
+            animation-delay: 0.5s; /* Retraso para la animación */
+        }
+
+        h2 {
+            font-size: 3rem;
+            color: #000000;
+            margin-bottom: 10px;
+            animation-delay: 1s; /* Retraso para la animación */
+        }
+
+        p {
+            font-size: 1.5rem;
+            color: #000000;
+            margin-bottom: 20px;
+            animation-delay: 1.5s; /* Retraso para la animación */
+        }
+
+        .button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #008CBA;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-decoration: none; /* Asegura que no haya subrayado */
+            transition: background-color 0.3s ease, color 0.3s ease; /* Transición para el cambio de color */
+        }
+
+        .button:hover {
+            background-color: #FFD700; /* Cambia el color de fondo al pasar el cursor */
+            color: #E8E8E8; /* Cambia el color del texto al pasar el cursor */
+            text-decoration: none; /* Asegura que no se subraye tampoco al pasar el cursor */
+        }
+
+        .arrow {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 50px;
+            height: 50px;
+            background-color: rgba(0, 0, 0, 0.5);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            z-index: 2;
+        }
+
+        .arrow.left {
+            left: 20px;
+        }
+
+        .arrow.right {
+            right: 20px;
+        }
+
+        /* Animación de desvanecimiento y deslizamiento hacia arriba */
+        @keyframes fadeInUp {
+            0% {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="background" id="background"></div>
+    <div class="overlay">
+        <h1>Quimixtlan</h1>
+        <h2>Un Tesoro Escondido entre Montañas que Despierta los Sentidos</h2>
+        <p>En el corazón de la Sierra Negra de Puebla, Quimixtlán te invita a conocer su historia, su gente y sus hermosos paisajes. Este tranquilo pueblo es un lugar lleno de tradiciones que se mantienen vivas, donde puedes disfrutar de su arquitectura, su comida y la calidez de los habitantes.</p>
+        <a href="pagina.html" class="button">Conoce más</a>
+    </div>
+
+    <!-- Botones de flecha -->
+    <button class="arrow left" onclick="prevImage()">&#9664;</button>
+    <button class="arrow right" onclick="nextImage()">&#9654;</button>
+
+    <script>
+        // Lista de imágenes de fondo
+        const images = ['1.jpg', '11.jpg', '2.jpg', '3.jpg'];
+        let currentIndex = 0;
+
+        // Función para mostrar la imagen anterior
+        function prevImage() {
+            currentIndex = (currentIndex - 1 + images.length) % images.length; // Cambia al índice anterior
+            document.getElementById('background').style.backgroundImage = `url('${images[currentIndex]}')`;
+        }
+
+        // Función para mostrar la siguiente imagen
+        function nextImage() {
+            currentIndex = (currentIndex + 1) % images.length; // Cambia al siguiente índice
+            document.getElementById('background').style.backgroundImage = `url('${images[currentIndex]}')`;
+        }
+    </script>
+
+</body>
+</html>
